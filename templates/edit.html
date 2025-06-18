@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ro">
 <head>
-    <title>Editează Produs</title>
+  <meta charset="utf-8">
+  <title>Editează Produs</title>
 </head>
 <body>
-    <h1>Editează Produs</h1>
-
-    <form method="post">
-        <p><strong>Nume Produs:</strong> {{ product[1] }}</p>
-        <p><strong>SKU:</strong> {{ product[2] }}</p>
-        <label for="stock">Stoc:</label>
-        <input type="number" name="stock" value="{{ product[3] }}" required>
-        <button type="submit">Salvează</button>
-    </form>
-
-    <p><a href="{{ url_for('index') }}">Înapoi la lista de produse</a></p>
+  <h1>Editează Stoc pentru {{ product[1] }} ({{ product[2] }})</h1>
+  <form method="POST">
+    <input type="number" name="stock" value="{{ product[3] }}" required>
+    <button type="submit">Actualizează</button>
+  </form>
+  <a href="/">Înapoi la listă</a>
 </body>
 </html>

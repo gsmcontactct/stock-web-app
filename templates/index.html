@@ -1,35 +1,22 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="ro">
 <head>
-    <title>Inventar Produse</title>
+  <meta charset="utf-8">
+  <title>Gestiune Stocuri</title>
 </head>
 <body>
-    <h1>Lista Produse</h1>
-
-    <form action="/add" method="post">
-        <input type="text" name="name" placeholder="Nume Produs" required>
-        <input type="text" name="sku" placeholder="Cod SKU" required>
-        <input type="number" name="stock" placeholder="Stoc" required>
-        <button type="submit">Adaugă Produs</button>
-    </form>
-
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Nume Produs</th>
-            <th>SKU</th>
-            <th>Stoc</th>
-            <th>Acțiuni</th>
-        </tr>
-        {% for product in products %}
-        <tr>
-            <td>{{ product[0] }}</td>
-            <td>{{ product[1] }}</td>
-            <td>{{ product[2] }}</td>
-            <td>{{ product[3] }}</td>
-            <td><a href="{{ url_for('edit_product', product_id=product[0]) }}">Editează</a></td>
-        </tr>
-        {% endfor %}
-    </table>
+  <h1>Inventar Produse</h1>
+  <form method="POST" action="/add">
+    <input type="text" name="name" placeholder="Nume Produs" required>
+    <input type="text" name="sku" placeholder="Cod SKU" required>
+    <input type="number" name="stock" placeholder="Stoc" required>
+    <button type="submit">Adaugă Produs</button>
+  </form>
+  <h2>Lista Produse</h2>
+  <ul>
+    {% for id, name, sku, stock in products %}
+      <li>{{ name }} ({{ sku }}) - Stoc: {{ stock }} - <a href="/edit/{{ id }}">Editează</a></li>
+    {% endfor %}
+  </ul>
 </body>
 </html>
