@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Stock Management</title>
+</head>
+<body>
+  <h1>Product Inventory</h1>
+  <form method="POST" action="/add">
+    <input type="text" name="name" placeholder="Product Name" required>
+    <input type="text" name="sku" placeholder="SKU" required>
+    <input type="number" name="stock" placeholder="Stock" required>
+    <button type="submit">Add Product</button>
+  </form>
+  <h2>Product List</h2>
+  <ul>
+    {% for id, name, sku, stock in products %}
+      <li>{{ name }} ({{ sku }}) - Stock: {{ stock }} - <a href="/edit/{{ id }}">Edit</a></li>
+    {% endfor %}
+  </ul>
+</body>
+</html>

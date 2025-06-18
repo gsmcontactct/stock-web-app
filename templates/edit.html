@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Edit Product</title>
+</head>
+<body>
+  <h1>Edit Stock for {{ product[1] }} ({{ product[2] }})</h1>
+  <form method="POST">
+    <input type="number" name="stock" value="{{ product[3] }}" required>
+    <button type="submit">Update</button>
+  </form>
+  <a href="/">Back to list</a>
+</body>
+</html>
