@@ -1,42 +1,45 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f9f9;
+    margin: 20px;
 }
 
 h1 {
+    font-size: 28px;
     margin-bottom: 20px;
 }
 
 form {
     display: flex;
     flex-wrap: wrap;
+    gap: 10px;
     align-items: center;
     margin-bottom: 20px;
-    gap: 10px;
 }
 
 form input[type="text"],
 form input[type="number"],
 form input[type="search"] {
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     height: 38px;
     flex: 1;
-    min-width: 180px;
+    min-width: 160px;
     font-size: 14px;
+    background-color: #fff;
 }
 
 button {
-    padding: 8px 16px;
+    padding: 10px 18px;
     background-color: #3498db;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    height: 38px;
     font-size: 14px;
+    height: 38px;
+    transition: background-color 0.2s ease;
 }
 
 button:hover {
@@ -44,41 +47,35 @@ button:hover {
 }
 
 ul {
-    list-style-type: none;
-    padding-left: 0;
+    list-style: none;
+    padding: 0;
 }
 
 li {
-    background: white;
-    border: 1px solid #ddd;
-    padding: 12px 16px;
+    background-color: #fff;
+    padding: 15px;
     margin-bottom: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-}
-
-li strong {
-    flex: 1;
-    margin-right: 15px;
 }
 
 li form {
     display: flex;
-    gap: 10px;
-    margin: 0;
-    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
 }
 
-li a {
-    margin-left: 10px;
-    color: #007BFF;
+a {
+    color: #2980b9;
     text-decoration: none;
-    font-size: 14px;
+    margin-left: 10px;
+    font-weight: 500;
 }
 
-li a:hover {
+a:hover {
     text-decoration: underline;
 }

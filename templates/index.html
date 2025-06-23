@@ -8,33 +8,34 @@
 <body>
     <h1>Stoc Produse</h1>
 
-    <section>
-        <form action="/add" method="post">
-            <input type="text" name="name" placeholder="Nume produs" required>
-            <input type="number" name="stock" placeholder="Stoc" min="0" required>
-            <button type="submit">Adaugă</button>
-        </form>
-    </section>
+    <!-- Formular Adăugare -->
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Nume produs" required>
+        <input type="number" name="stock" placeholder="Stoc" min="0" required>
+        <button type="submit">Adaugă</button>
+    </form>
 
-    <section>
-        <form method="get" action="/">
-            <input type="search" name="q" placeholder="Caută produs...">
-            <button type="submit">Caută</button>
-        </form>
-    </section>
+    <!-- Formular Căutare -->
+    <form action="/search" method="get">
+        <input type="search" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+        <button type="submit">Caută</button>
+    </form>
 
+    <!-- Lista de produse -->
     <ul>
         {% for product in products %}
-            <li>
-                <strong>{{ product[1] }} ({{ product[2] }}) – Stoc:</strong>
-                <form action="/update/{{ product[0] }}" method="post">
-                    <input type="number" name="stock" value="{{ product[3] }}" min="0">
-                    <button type="submit">Actualizează</button>
-                </form>
+        <li>
+            <div>
+                <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
+            </div>
+            <form action="/update/{{ product[0] }}" method="post">
+                <input type="number" name="stock" value="{{ product[3] }}" min="0">
+                <button type="submit">Actualizează</button>
                 <a href="/delete/{{ product[0] }}">Șterge</a>
-            </li>
+            </form>
+        </li>
         {% else %}
-            <li>Nu există produse</li>
+        <li>Nu există produse în stoc.</li>
         {% endfor %}
     </ul>
 </body>
