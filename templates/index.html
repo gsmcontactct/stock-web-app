@@ -7,23 +7,21 @@
 </head>
 <body>
     <div class="container">
-        <h1>Stoc Produse</h1>
-
-        <!-- Formulare Adăugare + Căutare -->
-        <div class="form-row">
-            <form class="inline-form" method="post" action="/add">
+        <div class="top-bar">
+            <form class="add-form" method="post" action="/add">
                 <input type="text" name="name" placeholder="Nume produs" required>
                 <input type="number" name="stock" placeholder="Stoc" min="0" required>
                 <button type="submit">Adaugă</button>
             </form>
 
-            <form class="inline-form" method="get" action="/search">
+            <form class="search-form" method="get" action="/search">
                 <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
                 <button type="submit">Caută</button>
             </form>
         </div>
 
-        <!-- Lista produse -->
+        <h1>Stoc Produse</h1>
+
         <ul class="product-list">
             {% for product in products %}
             <li>

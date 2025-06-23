@@ -1,34 +1,36 @@
 body {
     font-family: sans-serif;
     background: #f2f2f2;
-    margin: 20px;
+    margin: 0;
+    padding: 0;
     color: #222;
 }
 
 .container {
-    max-width: 700px;
-    margin: auto;
+    max-width: 900px;
+    margin: 30px auto;
     background: white;
     padding: 20px 25px;
     border-radius: 6px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.1);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 24px;
+    margin-top: 30px;
     margin-bottom: 20px;
 }
 
-.form-row {
+.top-bar {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 10px;
+    gap: 20px;
     flex-wrap: wrap;
-    margin-bottom: 12px;
 }
 
-.inline-form {
+.add-form,
+.search-form {
     display: flex;
     gap: 8px;
     flex-wrap: wrap;
@@ -36,15 +38,13 @@ h1 {
 
 input[type="text"],
 input[type="number"] {
-    padding: 4px 8px;
+    padding: 6px 10px;
     font-size: 14px;
     border: 1px solid #bbb;
     border-radius: 4px;
     transition: border 0.2s;
 }
 
-input[type="text"]:hover,
-input[type="number"]:hover,
 input[type="text"]:focus,
 input[type="number"]:focus {
     border-color: #3498db;
@@ -52,8 +52,8 @@ input[type="number"]:focus {
 }
 
 button {
-    padding: 4px 10px;
-    font-size: 13px;
+    padding: 6px 12px;
+    font-size: 14px;
     background: #3498db;
     color: white;
     border: none;
@@ -81,13 +81,14 @@ a:hover {
 ul.product-list {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 ul.product-list li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 6px 0;
+    padding: 8px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -97,8 +98,14 @@ ul.product-list li form {
     gap: 6px;
 }
 
-@media (max-width: 600px) {
-    .form-row {
+@media (max-width: 700px) {
+    .top-bar {
         flex-direction: column;
+        align-items: stretch;
+    }
+
+    .add-form,
+    .search-form {
+        width: 100%;
     }
 }
