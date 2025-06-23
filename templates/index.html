@@ -1,34 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="ro">
 <head>
-    <title>Stoc Web App</title>
+    <meta charset="UTF-8">
+    <title>Stoc Produse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Stoc Produse</h1>
 
-    <form action="{{ url_for('add_product') }}" method="post">
-        <input type="text" name="name" placeholder="Nume produs" required>
-        <input type="number" name="stock" placeholder="Stoc" required>
-        <button type="submit">Adaugă</button>
-    </form>
+    <section>
+        <form action="/add" method="post">
+            <input type="text" name="name" placeholder="Nume produs" required>
+            <input type="number" name="stock" placeholder="Stoc" min="0" required>
+            <button type="submit">Adaugă</button>
+        </form>
+    </section>
 
-    <form action="{{ url_for('search') }}" method="get" style="margin-top: 20px;">
-        <input type="text" name="q" placeholder="Caută produs..." value="{{ search if search else '' }}">
-        <button type="submit">Caută</button>
-    </form>
+    <section>
+        <form method="get" action="/">
+            <input type="search" name="q" placeholder="Caută produs...">
+            <button type="submit">Caută</button>
+        </form>
+    </section>
 
     <ul>
-    {% for id, name, sku, stock in products %}
-        <li>
-            <strong>{{ name }}</strong> ({{ sku }}) – Stoc: {{ stock }}
-            <form action="{{ url_for('update_product', product_id=id) }}" method="post" style="display:inline;">
-                <input type="number" name="stock" value="{{ stock }}" style="width:60px;">
-                <button type="submit">Actualizează</button>
-            </form>
-            <a href="{{ url_for('delete_product', product_id=id) }}">Șterge</a>
-        </li>
-    {% endfor %}
+        {% for product in products %}
+            <li>
+                <strong>{{ product[1] }} ({{ product[2] }})</strong> – Stoc:
+                <form action="/update/{{ product[0] }}" method="post" style="display: inline;">
+                    <input type="number" name="stock" value="{{ product[3] }}" min="0">
+                    <button type="submit">Actualizează</button>
+                </form>
+                <a href="/delete/{{ product[0] }}">Șterge</a>
+            </li>
+        {% else %}
+            <li>Nu există produse</li>
+        {% endfor %}
     </ul>
 </body>
 </html>
