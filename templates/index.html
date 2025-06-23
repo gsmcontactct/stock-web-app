@@ -26,8 +26,8 @@
     <ul>
         {% for product in products %}
             <li>
-                <strong>{{ product[1] }} ({{ product[2] }})</strong> – Stoc:
-                <form action="/update/{{ product[0] }}" method="post" style="display: inline;">
+                <strong>{{ product[1] }} ({{ product[2] }}) – Stoc:</strong>
+                <form action="/update/{{ product[0] }}" method="post">
                     <input type="number" name="stock" value="{{ product[3] }}" min="0">
                     <button type="submit">Actualizează</button>
                 </form>
