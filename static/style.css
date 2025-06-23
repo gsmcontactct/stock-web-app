@@ -1,81 +1,80 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
+    font-family: sans-serif;
+    background: #f2f2f2;
     margin: 20px;
+    color: #222;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    background: white;
+    padding: 20px 25px;
+    border-radius: 6px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.1);
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 22px;
     margin-bottom: 20px;
 }
 
-form {
+.inline-form {
     display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
     flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 20px;
 }
 
-form input[type="text"],
-form input[type="number"],
-form input[type="search"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    height: 38px;
-    flex: 1;
-    min-width: 160px;
+input[type="text"],
+input[type="number"] {
+    padding: 4px 8px;
     font-size: 14px;
-    background-color: #fff;
+    border: 1px solid #bbb;
+    border-radius: 4px;
 }
 
 button {
-    padding: 10px 18px;
-    background-color: #3498db;
+    padding: 4px 10px;
+    font-size: 13px;
+    background: #3498db;
     color: white;
     border: none;
-    border-radius: 6px;
+    border-radius: 4px;
     cursor: pointer;
-    font-size: 14px;
-    height: 38px;
-    transition: background-color 0.2s ease;
 }
 
 button:hover {
-    background-color: #2980b9;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
-li form {
-    display: flex;
-    gap: 8px;
-    align-items: center;
+    background: #2980b9;
 }
 
 a {
-    color: #2980b9;
     text-decoration: none;
-    margin-left: 10px;
-    font-weight: 500;
+    color: crimson;
+    font-weight: bold;
+    margin-left: 5px;
+    font-size: 14px;
 }
 
 a:hover {
     text-decoration: underline;
+}
+
+ul.product-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.product-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+ul.product-list li form {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
