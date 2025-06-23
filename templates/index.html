@@ -1,23 +1,29 @@
-<!doctype html>
-<html lang="ro">
+<!DOCTYPE html>
+<html>
 <head>
-  <meta charset="utf-8">
-  <title>Gestiune Stocuri</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Stoc Produse</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-  <h1>Inventar Produse</h1>
-  <form method="POST" action="/add">
-    <input type="text" name="name" placeholder="Nume Produs" required>
-    <input type="text" name="sku" placeholder="Cod SKU" required>
-    <input type="number" name="stock" placeholder="Stoc" required>
-    <button type="submit">Adaugă Produs</button>
-  </form>
-  <h2>Lista Produse</h2>
-  <ul>
-    {% for id, name, sku, stock in products %}
-      <li>{{ name }} ({{ sku }}) - Stoc: {{ stock }} - <a href="/edit/{{ id }}">Editează</a></li>
-    {% endfor %}
-  </ul>
+    <h1>Gestiune Stoc</h1>
+    <form action="/add" method="post">
+        <input type="text" name="name" placeholder="Nume produs" required>
+        <input type="number" name="stock" placeholder="Stoc" required>
+        <button type="submit">Adaugă</button>
+    </form>
+
+    <h2>Produse existente</h2>
+    <ul>
+        {% for id, name, sku, stock in products %}
+        <li>
+            <strong>{{ name }}</strong> ({{ sku }}) - {{ stock }} bucăți
+            <form action="/update/{{ id }}" method="post" style="display:inline;">
+                <input type="number" name="stock" value="{{ stock }}" required>
+                <button type="submit">Actualizează</button>
+            </form>
+            <a href="/delete/{{ id }}">Șterge</a>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
