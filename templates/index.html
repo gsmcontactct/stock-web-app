@@ -9,26 +9,26 @@
     <h1>Stoc Produse</h1>
 
     <!-- Formular Adăugare -->
-    <form action="/add" method="post">
+    <form class="form-row" action="/add" method="post">
         <input type="text" name="name" placeholder="Nume produs" required>
         <input type="number" name="stock" placeholder="Stoc" min="0" required>
         <button type="submit">Adaugă</button>
     </form>
 
     <!-- Formular Căutare -->
-    <form action="/search" method="get">
+    <form class="form-row" action="/search" method="get">
         <input type="search" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
         <button type="submit">Caută</button>
     </form>
 
-    <!-- Lista de produse -->
-    <ul>
+    <!-- Lista produse -->
+    <ul class="product-list">
         {% for product in products %}
-        <li>
-            <div>
+        <li class="product-item">
+            <span class="product-info">
                 <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
-            </div>
-            <form action="/update/{{ product[0] }}" method="post">
+            </span>
+            <form action="/update/{{ product[0] }}" method="post" class="product-actions">
                 <input type="number" name="stock" value="{{ product[3] }}" min="0">
                 <button type="submit">Actualizează</button>
                 <a href="/delete/{{ product[0] }}">Șterge</a>
