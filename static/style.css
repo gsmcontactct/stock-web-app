@@ -19,10 +19,18 @@ h1 {
     margin-bottom: 20px;
 }
 
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
 .inline-form {
     display: flex;
     gap: 8px;
-    margin-bottom: 12px;
     flex-wrap: wrap;
 }
 
@@ -32,6 +40,15 @@ input[type="number"] {
     font-size: 14px;
     border: 1px solid #bbb;
     border-radius: 4px;
+    transition: border 0.2s;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #3498db;
+    outline: none;
 }
 
 button {
@@ -42,6 +59,7 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.2s;
 }
 
 button:hover {
@@ -77,4 +95,10 @@ ul.product-list li form {
     display: flex;
     align-items: center;
     gap: 6px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        flex-direction: column;
+    }
 }

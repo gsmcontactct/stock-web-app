@@ -9,18 +9,19 @@
     <div class="container">
         <h1>Stoc Produse</h1>
 
-        <!-- Adăugare produs -->
-        <form class="inline-form" method="post" action="/add">
-            <input type="text" name="name" placeholder="Nume produs" required>
-            <input type="number" name="stock" placeholder="Stoc" min="0" required>
-            <button type="submit">Adaugă</button>
-        </form>
+        <!-- Formulare Adăugare + Căutare -->
+        <div class="form-row">
+            <form class="inline-form" method="post" action="/add">
+                <input type="text" name="name" placeholder="Nume produs" required>
+                <input type="number" name="stock" placeholder="Stoc" min="0" required>
+                <button type="submit">Adaugă</button>
+            </form>
 
-        <!-- Căutare -->
-        <form class="inline-form" method="get" action="/search">
-            <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
-            <button type="submit">Caută</button>
-        </form>
+            <form class="inline-form" method="get" action="/search">
+                <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+                <button type="submit">Caută</button>
+            </form>
+        </div>
 
         <!-- Lista produse -->
         <ul class="product-list">
