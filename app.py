@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
+import os
 import re
 
 app = Flask(__name__)
@@ -77,5 +78,17 @@ def delete_product(product_id):
     conn.close()
     return redirect(url_for("index"))
 
+@app.route("/search", methods=["GET"])
+def search():
+    query = normalize(request.args.get("q", ""))
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM inventory")
+    all_rows = c.fetchall()
+    conn.close()
+
+    filtered = [row for row in all_rows if query in normalize(row[1]) or query in normalize(row[2])]
+    return render_template("index.html", products=filtered, search=query)
+    
 if __name__ == "__main__":
     app.run(debug=True)

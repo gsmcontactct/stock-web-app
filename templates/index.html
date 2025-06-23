@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Stoc Produse</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Stoc Web App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Gestiune Stoc</h1>
-    <form action="/add" method="post">
+    <h1>Stoc Produse</h1>
+
+    <form action="{{ url_for('add_product') }}" method="post">
         <input type="text" name="name" placeholder="Nume produs" required>
         <input type="number" name="stock" placeholder="Stoc" required>
         <button type="submit">Adaugă</button>
     </form>
 
-    <h2>Produse existente</h2>
+    <form action="{{ url_for('search') }}" method="get" style="margin-top: 20px;">
+        <input type="text" name="q" placeholder="Caută produs..." value="{{ search if search else '' }}">
+        <button type="submit">Caută</button>
+    </form>
+
     <ul>
-        {% for id, name, sku, stock in products %}
+    {% for id, name, sku, stock in products %}
         <li>
-            <strong>{{ name }}</strong> ({{ sku }}) - {{ stock }} bucăți
-            <form action="/update/{{ id }}" method="post" style="display:inline;">
-                <input type="number" name="stock" value="{{ stock }}" required>
+            <strong>{{ name }}</strong> ({{ sku }}) – Stoc: {{ stock }}
+            <form action="{{ url_for('update_product', product_id=id) }}" method="post" style="display:inline;">
+                <input type="number" name="stock" value="{{ stock }}" style="width:60px;">
                 <button type="submit">Actualizează</button>
             </form>
-            <a href="/delete/{{ id }}">Șterge</a>
+            <a href="{{ url_for('delete_product', product_id=id) }}">Șterge</a>
         </li>
-        {% endfor %}
+    {% endfor %}
     </ul>
 </body>
 </html>
