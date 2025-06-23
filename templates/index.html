@@ -7,14 +7,15 @@
 </head>
 <body>
     <div class="container">
+        <!-- Bara de sus: Adaugă + Caută -->
         <div class="top-bar">
-            <form class="add-form" method="post" action="/add">
+            <form class="form-row" method="post" action="/add">
                 <input type="text" name="name" placeholder="Nume produs" required>
                 <input type="number" name="stock" placeholder="Stoc" min="0" required>
                 <button type="submit">Adaugă</button>
             </form>
 
-            <form class="search-form" method="get" action="/search">
+            <form class="form-row" method="get" action="/search">
                 <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
                 <button type="submit">Caută</button>
             </form>
@@ -24,9 +25,11 @@
 
         <ul class="product-list">
             {% for product in products %}
-            <li>
-                <span><strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:</span>
-                <form method="post" action="/update/{{ product[0] }}">
+            <li class="product-item">
+                <div class="product-info">
+                    <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
+                </div>
+                <form method="post" action="/update/{{ product[0] }}" class="product-actions">
                     <input type="number" name="stock" value="{{ product[3] }}" min="0">
                     <button type="submit">✔</button>
                     <a href="/delete/{{ product[0] }}">✖</a>
