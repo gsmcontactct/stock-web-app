@@ -1,24 +1,18 @@
 body {
-    font-family: sans-serif;
-    background: #f2f2f2;
-    margin: 0;
-    padding: 0;
-    color: #222;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 40px;
+    color: #333;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
 }
 
 .container {
     max-width: 900px;
-    margin: 30px auto;
-    background: white;
-    padding: 20px 25px;
-    border-radius: 6px;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+    margin: auto;
 }
 
 .top-bar {
@@ -27,51 +21,44 @@ h1 {
     align-items: flex-start;
     gap: 20px;
     flex-wrap: wrap;
+    margin-bottom: 20px;
 }
 
-.add-form,
-.search-form {
+.form-row {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
     flex-wrap: wrap;
 }
 
 input[type="text"],
-input[type="number"] {
+input[type="number"],
+input[type="search"] {
     padding: 6px 10px;
-    font-size: 14px;
-    border: 1px solid #bbb;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    transition: border 0.2s;
-}
-
-input[type="text"]:focus,
-input[type="number"]:focus {
-    border-color: #3498db;
-    outline: none;
+    font-size: 14px;
 }
 
 button {
     padding: 6px 12px;
-    font-size: 14px;
-    background: #3498db;
+    background-color: #3498db;
     color: white;
     border: none;
     border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
-    transition: background 0.2s;
 }
 
 button:hover {
-    background: #2980b9;
+    background-color: #2980b9;
 }
 
 a {
+    color: #3498db;
     text-decoration: none;
-    color: crimson;
-    font-weight: bold;
-    margin-left: 5px;
     font-size: 14px;
+    margin-left: 10px;
 }
 
 a:hover {
@@ -84,28 +71,31 @@ ul.product-list {
     margin-top: 20px;
 }
 
-ul.product-list li {
+li.product-item {
+    background: white;
+    margin-bottom: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #eee;
+    flex-wrap: wrap;
 }
 
-ul.product-list li form {
+.product-info {
+    flex: 1 1 200px;
+}
+
+.product-actions {
     display: flex;
+    gap: 8px;
     align-items: center;
-    gap: 6px;
 }
 
 @media (max-width: 700px) {
     .top-bar {
         flex-direction: column;
         align-items: stretch;
-    }
-
-    .add-form,
-    .search-form {
-        width: 100%;
     }
 }
