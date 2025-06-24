@@ -32,7 +32,7 @@ def index():
     c.execute("SELECT * FROM inventory")
     products = c.fetchall()
     conn.close()
-    return render_template("index.html", products=products)
+    return render_template("index.html", products=products, search="", in_stock_only=False)
 
 @app.route("/add", methods=["POST"])
 def add_product():
@@ -81,14 +81,21 @@ def delete_product(product_id):
 @app.route("/search", methods=["GET"])
 def search():
     query = normalize(request.args.get("q", ""))
+    in_stock_only = request.args.get("in_stock_only") == "on"
+
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
     c.execute("SELECT * FROM inventory")
     all_rows = c.fetchall()
     conn.close()
 
-    filtered = [row for row in all_rows if query in normalize(row[1]) or query in normalize(row[2])]
-    return render_template("index.html", products=filtered, search=query)
-    
+    filtered = [
+        row for row in all_rows
+        if (query in normalize(row[1]) or query in normalize(row[2]))
+           and (not in_stock_only or row[3] > 0)
+    ]
+
+    return render_template("index.html", products=filtered, search=query, in_stock_only=in_stock_only)
+
 if __name__ == "__main__":
     app.run(debug=True)

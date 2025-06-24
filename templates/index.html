@@ -7,7 +7,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Bara de sus: Adaugă + Caută -->
         <div class="top-bar">
             <form class="form-row" method="post" action="/add">
                 <input type="text" name="name" placeholder="Nume produs" required>
@@ -17,6 +16,10 @@
 
             <form class="form-row" method="get" action="/search">
                 <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+                <label>
+                    <input type="checkbox" name="in_stock_only" {% if in_stock_only %}checked{% endif %}>
+                    Doar cu stoc
+                </label>
                 <button type="submit">Caută</button>
             </form>
         </div>
@@ -32,7 +35,7 @@
                 <form method="post" action="/update/{{ product[0] }}" class="product-actions">
                     <input type="number" name="stock" value="{{ product[3] }}" min="0">
                     <button type="submit">✔</button>
-                    <a href="/delete/{{ product[0] }}">✖</a>
+                    <a href="/delete/{{ product[0] }}" onclick="return confirm('Sigur vrei să ștergi produsul {{ product[1] }}?')">✖</a>
                 </form>
             </li>
             {% else %}
