@@ -8,7 +8,18 @@
 <body>
 <div class="container">
 
-    <!-- TOP BAR (UNTOUCHED) -->
+    <!-- DROPBOX BUTTONS (UNTOUCHED) -->
+    <div class="db-buttons">
+        <form method="POST" action="/save-dropbox">
+            <button type="submit">📤 Salvează în Dropbox</button>
+        </form>
+        <form method="POST" action="/load-dropbox">
+            <button type="submit">📥 Încarcă din Dropbox</button>
+        </form>
+        <a href="/download-db"><button type="button">📥 Descarcă baza de date</button></a>
+    </div>
+
+    <!-- ADD + SEARCH -->
     <div class="top-bar">
         <form class="form-row" method="post" action="/add">
             <input type="text" name="name" placeholder="Nume produs" required>
@@ -28,7 +39,7 @@
 
     <h1>Stoc Produse</h1>
 
-    <!-- PRODUCT LIST (UNTOUCHED) -->
+    <!-- PRODUCT LIST -->
     <ul class="product-list">
         {% for product in products %}
         <li class="product-item">
@@ -48,19 +59,9 @@
         {% endfor %}
     </ul>
 
-    <!-- DROPBOX buttons (UNTOUCHED) -->
-    <div class="db-buttons">
-        <form method="POST" action="/save-dropbox">
-            <button type="submit">📤 Salvează în Dropbox</button>
-        </form>
-        <form method="POST" action="/load-dropbox">
-            <button type="submit">📥 Încarcă din Dropbox</button>
-        </form>
-    </div>
-
 </div>
 
-<!-- BOTTOM LEFT ONLY upload + download db (moved) -->
+<!-- BOTTOM-LEFT: Only the two elements moved here -->
 <div class="bottom-left-db">
     <form action="/upload-db" method="POST" enctype="multipart/form-data" style="margin:0; display:flex; gap:10px;">
         <input type="file" name="file" required>

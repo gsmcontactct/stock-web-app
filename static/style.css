@@ -58,6 +58,13 @@ button:hover {
     background-color: #2980b9;
 }
 
+.db-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
 a {
     color: #3498db;
     text-decoration: none;
@@ -96,13 +103,6 @@ li.product-item {
     align-items: center;
 }
 
-.db-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
 @media (max-width: 700px) {
     .top-bar {
         flex-direction: column;
@@ -115,7 +115,7 @@ li.product-item {
     }
 }
 
-/* Bottom-left upload + download buttons */
+/* ONLY bottom-left for upload + download DB buttons */
 .bottom-left-db {
     position: fixed;
     bottom: 20px;
@@ -127,5 +127,5 @@ li.product-item {
 }
 
 .bottom-left-db button {
-    height: 36px; /* uniform height for both buttons */
+    height: 36px; /* uniform height */
 }
