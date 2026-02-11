@@ -1,17 +1,15 @@
 import os
 import sqlite3
 import re
-from flask import Flask, render_template, request, redirect, url_for, flash, send_file
+from flask import Flask, render_template, request, redirect, url_for, flash
 import dropbox
-from dropbox.oauth import DropboxOAuth2FlowNoRedirect
 from dropbox.exceptions import AuthError
-from io import BytesIO
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
 DB_FILE = "inventory.db"
-DB_NAME = "inventory.db"
+DB_NAME = "stocks.db"  # Dropbox filename
 
 # Load Dropbox credentials from environment variables
 DROPBOX_APP_KEY = os.environ.get("DROPBOX_APP_KEY")
@@ -115,11 +113,15 @@ def search():
 def save_dropbox():
     try:
         with open(DB_FILE, "rb") as f:
-            dbx.files_upload(f.read(), f"/{DB_NAME}", mode=dropbox.files.WriteMode("overwrite"))
-        flash("Baza de date a fost salvată în Dropbox ✅", "success")
+            path = f"/{DB_NAME}"  # Upload as stocks.db
+            res = dbx.files_upload(f.read(), path, mode=dropbox.files.WriteMode("overwrite"))
+            print(f"Uploaded to Dropbox at path: {res.path_display}")
+        flash(f"Baza de date a fost salvată în Dropbox ✅ ({res.path_display})", "success")
     except AuthError as e:
+        print(f"Dropbox AuthError: {e}")
         flash(f"Dropbox authentication error: {e}", "error")
     except Exception as e:
+        print(f"Dropbox upload error: {e}")
         flash(f"Dropbox error: {e}", "error")
     return redirect(url_for("index"))
 
@@ -127,13 +129,17 @@ def save_dropbox():
 @app.route("/load-dropbox", methods=["POST"])
 def load_dropbox():
     try:
-        metadata, res = dbx.files_download(f"/{DB_NAME}")
+        path = f"/{DB_NAME}"
+        metadata, res = dbx.files_download(path)
         with open(DB_FILE, "wb") as f:
             f.write(res.content)
-        flash("Baza de date a fost descărcată din Dropbox ✅", "success")
+        print(f"Downloaded from Dropbox path: {metadata.path_display}")
+        flash(f"Baza de date a fost descărcată din Dropbox ✅ ({metadata.path_display})", "success")
     except AuthError as e:
+        print(f"Dropbox AuthError: {e}")
         flash(f"Dropbox authentication error: {e}", "error")
     except Exception as e:
+        print(f"Dropbox download error: {e}")
         flash(f"Dropbox error: {e}", "error")
     return redirect(url_for("index"))
 
