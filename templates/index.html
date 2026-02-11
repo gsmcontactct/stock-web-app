@@ -8,6 +8,23 @@
 <body>
 <div class="container">
 
+    <!-- DATABASE UPLOAD -->
+    <form action="/upload-db" method="POST" enctype="multipart/form-data" class="form-row">
+        <input type="file" name="file" required>
+        <button type="submit">📤 Încarcă baza de date</button>
+    </form>
+
+    <!-- DROPBOX BUTTONS -->
+    <div class="db-buttons">
+        <form method="POST" action="/save-dropbox">
+            <button type="submit">📤 Salvează în Dropbox</button>
+        </form>
+        <form method="POST" action="/load-dropbox">
+            <button type="submit">📥 Încarcă din Dropbox</button>
+        </form>
+        <a href="/download-db"><button type="button">📥 Descarcă baza de date</button></a>
+    </div>
+
     <!-- ADD + SEARCH -->
     <div class="top-bar">
         <form class="form-row" method="post" action="/add">
@@ -48,29 +65,6 @@
         {% endfor %}
     </ul>
 
-    <!-- DROPBOX buttons stay exactly where they are -->
-    <div class="db-buttons">
-        <form method="POST" action="/save-dropbox">
-            <button type="submit">📤 Salvează în Dropbox</button>
-        </form>
-        <form method="POST" action="/load-dropbox">
-            <button type="submit">📥 Încarcă din Dropbox</button>
-        </form>
-    </div>
-
 </div>
-
-<!-- ONLY this moved to bottom left -->
-<div class="bottom-left-db">
-    <form action="/upload-db" method="POST" enctype="multipart/form-data" style="margin:0; display:flex; gap:10px;">
-        <input type="file" name="file" required>
-        <button type="submit">📤 Încarcă baza de date</button>
-    </form>
-
-    <form action="/download-db" method="GET" style="margin:0;">
-        <button type="submit">📥 Descarcă baza de date</button>
-    </form>
-</div>
-
 </body>
 </html>
