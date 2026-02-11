@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Stoc Produse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <!-- Bara de sus: Adaugă + Caută -->
+        <div class="top-bar">
+            <form class="form-row" method="post" action="/add">
+                <input type="text" name="name" placeholder="Nume produs" required>
+                <input type="number" name="stock" placeholder="Stoc" min="0" required>
+                <button type="submit">Adaugă</button>
+            </form>
+
+            <form class="form-row" method="get" action="/search">
+                <input type="text" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+                <button type="submit">Caută</button>
+            </form>
+        </div>
+
+        <h1>Stoc Produse</h1>
+
+        <ul class="product-list">
+            {% for product in products %}
+            <li class="product-item">
+                <div class="product-info">
+                    <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
+                </div>
+                <form method="post" action="/update/{{ product[0] }}" class="product-actions">
+                    <input type="number" name="stock" value="{{ product[3] }}" min="0">
+                    <button type="submit">✔</button>
+                    <a href="/delete/{{ product[0] }}">✖</a>
+                </form>
+            </li>
+            {% else %}
+            <li style="text-align: center;">Nimic găsit.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Stoc Produse</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+
+    <!-- DATABASE + DROPBOX (same idea as first app) -->
+    <form action="/upload-db" method="POST" enctype="multipart/form-data" class="form-row">
+        <input type="file" name="file" required>
+        <button type="submit">📤 Încarcă baza de date</button>
+    </form>
+
+    <div class="db-buttons">
+        <a href="/save-dropbox"><button type="button">📤 Salvează în Dropbox</button></a>
+        <a href="/load-dropbox"><button type="button">📥 Încarcă din Dropbox</button></a>
+        <a href="/download-db"><button type="button">📥 Descarcă baza de date</button></a>
+    </div>
+
+    <!-- ADD + SEARCH -->
+    <div class="top-bar">
+        <form class="form-row" method="post" action="/add">
+            <input type="text" name="name" placeholder="Nume produs" required>
+            <input type="number" name="stock" placeholder="Stoc" min="0" required>
+            <button type="submit">Adaugă</button>
+        </form>
+
+        <form class="form-row" method="get" action="/search">
+            <input type="search" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+            <label>
+                <input type="checkbox" name="in_stock_only" {% if in_stock_only %}checked{% endif %}>
+                Doar cu stoc
+            </label>
+            <button type="submit">Caută</button>
+        </form>
+    </div>
+
+    <h1>Stoc Produse</h1>
+
+    <!-- PRODUCT LIST -->
+    <ul class="product-list">
+        {% for product in products %}
+        <li class="product-item">
+            <div class="product-info">
+                <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
+            </div>
+
+            <form method="post" action="/update/{{ product[0] }}" class="product-actions">
+                <input type="number" name="stock" value="{{ product[3] }}" min="0">
+                <button type="submit">✔</button>
+                <a href="/delete/{{ product[0] }}"
+                   onclick="return confirm('Sigur vrei să ștergi produsul {{ product[1] }}?')">✖</a>
+            </form>
+        </li>
+        {% else %}
+        <li style="text-align:center;">Nimic găsit.</li>
+        {% endfor %}
+    </ul>
+
+</div>
+</body>
+</html>

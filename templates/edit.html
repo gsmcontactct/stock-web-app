@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Editează Produs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Editează Stoc pentru {{ product[1] }} ({{ product[2] }})</h1>
+  <form method="POST">
+    <input type="number" name="stock" value="{{ product[3] }}" required>
+    <button type="submit">Actualizează</button>
+  </form>
+  <a href="/">Înapoi la listă</a>
+</body>
+</html>
