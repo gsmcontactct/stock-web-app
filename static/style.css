@@ -1,18 +1,21 @@
 body {
     font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    margin: 20px;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 40px;
     color: #333;
 }
 
 h1 {
-    color: #333;
+    color: #2c3e50;
     margin-bottom: 20px;
 }
 
 .container {
+    width: 100%;
     max-width: 900px;
-    margin: 0 auto;
+    margin-left: 40px;
+    margin-right: auto;
 }
 
 .top-bar {
@@ -26,14 +29,15 @@ h1 {
 
 .form-row {
     display: flex;
+    align-items: center;
     gap: 10px;
     flex-wrap: wrap;
-    align-items: center;
 }
 
 input[type="text"],
 input[type="number"],
-input[type="search"] {
+input[type="search"],
+input[type="file"] {
     padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -42,7 +46,7 @@ input[type="search"] {
 
 button {
     padding: 6px 12px;
-    background-color: #28a745;
+    background-color: #3498db;
     color: white;
     border: none;
     border-radius: 4px;
@@ -51,13 +55,17 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #2980b9;
 }
 
 a {
+    color: #3498db;
     text-decoration: none;
-    color: white;
     font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 ul.product-list {
@@ -88,25 +96,11 @@ li.product-item {
     align-items: center;
 }
 
-/* Dropbox buttons container */
-.dropbox-buttons {
-    margin-top: 30px;
+.db-buttons {
     display: flex;
     gap: 10px;
-}
-
-.db-btn {
-    background: #007bff;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background 0.3s ease;
-}
-
-.db-btn:hover {
-    background: #0056b3;
+    margin-top: 30px;
+    justify-content: flex-start; /* bottom left */
 }
 
 @media (max-width: 700px) {
@@ -116,6 +110,7 @@ li.product-item {
     }
 
     .container {
-        margin: 0 20px;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }

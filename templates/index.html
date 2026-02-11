@@ -7,7 +7,6 @@
 </head>
 <body>
     <div class="container">
-
         <div class="top-bar">
             <!-- Add Product Form -->
             <form class="form-row" method="post" action="/add">
@@ -34,7 +33,7 @@
             {% for product in products %}
             <li class="product-item">
                 <div class="product-info">
-                    <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc: {{ product[3] }}
+                    <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
                 </div>
                 <form method="post" action="/update/{{ product[0] }}" class="product-actions">
                     <input type="number" name="stock" value="{{ product[3] }}" min="0">
@@ -47,12 +46,15 @@
             {% endfor %}
         </ul>
 
-        <!-- Dropbox Buttons at bottom left -->
-        <div class="dropbox-buttons">
-            <a href="/save-dropbox" class="db-btn">📤 Salvează în Dropbox</a>
-            <a href="/load-dropbox" class="db-btn">📥 Încarcă din Dropbox</a>
+        <!-- Dropbox Buttons at Bottom Left -->
+        <div class="db-buttons">
+            <form method="POST" action="/save-dropbox">
+                <button type="submit">📤 Salvează în Dropbox</button>
+            </form>
+            <form method="POST" action="/load-dropbox">
+                <button type="submit">📥 Descarcă baza de date</button>
+            </form>
         </div>
-
     </div>
 </body>
 </html>
