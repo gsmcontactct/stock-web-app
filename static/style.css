@@ -58,13 +58,6 @@ button:hover {
     background-color: #2980b9;
 }
 
-.db-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
 a {
     color: #3498db;
     text-decoration: none;
@@ -103,6 +96,13 @@ li.product-item {
     align-items: center;
 }
 
+.db-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
 @media (max-width: 700px) {
     .top-bar {
         flex-direction: column;
@@ -113,4 +113,19 @@ li.product-item {
         margin-left: 20px;
         margin-right: 20px;
     }
+}
+
+/* bottom-left file upload + download button */
+.bottom-left-db {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    z-index: 1000;
+}
+
+.bottom-left-db button {
+    height: 36px; /* make upload and download same height */
 }
