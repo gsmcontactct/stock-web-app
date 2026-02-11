@@ -1,46 +1,40 @@
 from flask import Flask, render_template, request, redirect
 import sqlite3
-import os
 import dropbox
-from dropbox.exceptions import AuthError
+import os
 
 app = Flask(__name__)
 DB_NAME = "inventory.db"
 
-# === Dropbox credentials from environment ===
+# Dropbox credentials (set via Render environment variables)
 DROPBOX_APP_KEY = os.getenv("DROPBOX_APP_KEY")
 DROPBOX_APP_SECRET = os.getenv("DROPBOX_APP_SECRET")
 DROPBOX_REFRESH_TOKEN = os.getenv("DROPBOX_REFRESH_TOKEN")
 
-# === Dropbox client ===
 def get_dropbox_client():
-    if not DROPBOX_APP_KEY or not DROPBOX_APP_SECRET or not DROPBOX_REFRESH_TOKEN:
-        raise ValueError("Missing Dropbox credentials in environment variables")
+    if not (DROPBOX_APP_KEY and DROPBOX_APP_SECRET and DROPBOX_REFRESH_TOKEN):
+        raise ValueError("Lipsesc credențiale Dropbox în variabilele de mediu")
     return dropbox.Dropbox(
         oauth2_refresh_token=DROPBOX_REFRESH_TOKEN,
         app_key=DROPBOX_APP_KEY,
         app_secret=DROPBOX_APP_SECRET
     )
 
-# === Database init ===
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS inventory (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            sku TEXT UNIQUE,
-            stock INTEGER
+            name TEXT NOT NULL,
+            sku TEXT UNIQUE NOT NULL,
+            stock INTEGER NOT NULL
         )
     """)
     conn.commit()
     conn.close()
 
-init_db()
-
-# === Helper to fetch all products ===
-def get_all_products():
+def get_all():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("SELECT * FROM inventory ORDER BY id DESC")
@@ -48,21 +42,23 @@ def get_all_products():
     conn.close()
     return rows
 
-# === Routes ===
 @app.route("/")
 def index():
-    products = get_all_products()
+    init_db()
+    products = get_all()
     return render_template("index.html", products=products, search="", in_stock_only=False)
 
 @app.route("/add", methods=["POST"])
 def add_product():
-    name = request.form.get("name", "").strip()
+    name = request.form.get("name").strip()
     try:
         stock = int(request.form.get("stock"))
     except:
         stock = 0
+
     if not name:
         return redirect("/")
+
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("SELECT MAX(id) FROM inventory")
@@ -79,6 +75,7 @@ def update_product(product_id):
         stock = int(request.form.get("stock"))
     except:
         stock = 0
+
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
     c.execute("UPDATE inventory SET stock=? WHERE id=?", (stock, product_id))
@@ -95,43 +92,38 @@ def delete_product(product_id):
     conn.close()
     return redirect("/")
 
-@app.route("/search", methods=["GET"])
-def search():
-    query = request.args.get("q", "").lower().strip()
-    in_stock_only = request.args.get("in_stock_only") == "on"
-    all_rows = get_all_products()
-    filtered = [
-        row for row in all_rows
-        if (query in row[1].lower() or query in row[2].lower()) and (not in_stock_only or row[3] > 0)
-    ]
-    return render_template("index.html", products=filtered, search=query, in_stock_only=in_stock_only)
+@app.route("/upload-db", methods=["POST"])
+def upload_db():
+    if "file" not in request.files:
+        return "No file part", 400
 
-# === Dropbox upload ===
+    file = request.files["file"]
+    if file.filename == "":
+        return "No selected file", 400
+
+    file.save(DB_NAME)
+    init_db()
+    return redirect("/")
+
+@app.route("/download-db")
+def download_db():
+    return redirect("/save-dropbox")  # Just download from Dropbox
+
+# === Dropbox routes ===
 @app.route("/save-dropbox")
 def save_dropbox():
-    try:
-        dbx = get_dropbox_client()
-        with open(DB_NAME, "rb") as f:
-            dbx.files_upload(f.read(), f"/{DB_NAME}", mode=dropbox.files.WriteMode.overwrite)
-        return redirect("/")
-    except AuthError as e:
-        return f"Dropbox authentication error: {e}", 500
-    except Exception as e:
-        return f"Dropbox upload failed: {e}", 500
+    dbx = get_dropbox_client()
+    with open(DB_NAME, "rb") as f:
+        dbx.files_upload(f.read(), f"/{DB_NAME}", mode=dropbox.files.WriteMode("overwrite"))
+    return redirect("/")
 
-# === Dropbox download ===
 @app.route("/load-dropbox")
 def load_dropbox():
-    try:
-        dbx = get_dropbox_client()
-        _, res = dbx.files_download(f"/{DB_NAME}")
-        with open(DB_NAME, "wb") as f:
-            f.write(res.content)
-        return redirect("/")
-    except AuthError as e:
-        return f"Dropbox authentication error: {e}", 500
-    except Exception as e:
-        return f"Dropbox download failed: {e}", 500
+    dbx = get_dropbox_client()
+    metadata, res = dbx.files_download(f"/{DB_NAME}")
+    with open(DB_NAME, "wb") as f:
+        f.write(res.content)
+    return redirect("/")
 
 if __name__ == "__main__":
     init_db()
