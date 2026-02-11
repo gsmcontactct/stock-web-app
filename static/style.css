@@ -1,25 +1,26 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 40px;
+    background: #f7f7f7;
+    margin: 20px;
     color: #333;
 }
 
 h1 {
-    color: #2c3e50;
+    color: #333;
     margin-bottom: 20px;
 }
 
 .container {
     max-width: 900px;
-    margin: auto;
+    margin: 0 auto;
 }
 
 .top-bar {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
     margin-bottom: 20px;
 }
 
@@ -27,47 +28,94 @@ h1 {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-input, button {
+input[type="text"],
+input[type="number"],
+input[type="search"] {
     padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
     font-size: 14px;
 }
 
 button {
-    background: #3498db;
+    padding: 6px 12px;
+    background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
+    font-size: 14px;
     cursor: pointer;
 }
 
 button:hover {
-    background: #2980b9;
-}
-
-.db-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    background-color: #218838;
 }
 
 a {
-    color: #3498db;
     text-decoration: none;
+    color: white;
+    font-size: 14px;
 }
 
 ul.product-list {
     list-style: none;
     padding: 0;
+    margin-top: 20px;
 }
 
 li.product-item {
     background: white;
-    padding: 10px;
     margin-bottom: 10px;
+    padding: 10px 15px;
     border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.08);
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.product-info {
+    flex: 1 1 200px;
+}
+
+.product-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* Dropbox buttons container */
+.dropbox-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 10px;
+}
+
+.db-btn {
+    background: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.db-btn:hover {
+    background: #0056b3;
+}
+
+@media (max-width: 700px) {
+    .top-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .container {
+        margin: 0 20px;
+    }
 }
