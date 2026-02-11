@@ -48,7 +48,7 @@
         {% endfor %}
     </ul>
 
-    <!-- Dropbox buttons stay where they are -->
+    <!-- DROPBOX buttons stay exactly where they are -->
     <div class="db-buttons">
         <form method="POST" action="/save-dropbox">
             <button type="submit">📤 Salvează în Dropbox</button>
@@ -60,8 +60,8 @@
 
 </div>
 
-<!-- Bottom-left panel for DB upload/download -->
-<div class="db-upload-panel">
+<!-- ONLY this moved to bottom left -->
+<div class="bottom-left-db">
     <form action="/upload-db" method="POST" enctype="multipart/form-data" style="margin:0; display:flex; gap:10px;">
         <input type="file" name="file" required>
         <button type="submit">📤 Încarcă baza de date</button>
