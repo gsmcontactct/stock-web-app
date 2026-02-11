@@ -36,8 +36,7 @@ h1 {
 
 input[type="text"],
 input[type="number"],
-input[type="search"],
-input[type="file"] {
+input[type="search"] {
     padding: 6px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -56,23 +55,6 @@ button {
 
 button:hover {
     background-color: #2980b9;
-}
-
-.db-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
-
-a {
-    color: #3498db;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-a:hover {
-    text-decoration: underline;
 }
 
 ul.product-list {
@@ -97,10 +79,24 @@ li.product-item {
     flex: 1 1 200px;
 }
 
-.product-actions {
+.product-actions a {
+    color: #e74c3c;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.product-actions a:hover {
+    text-decoration: underline;
+}
+
+/* BOTTOM LEFT DROPBOX BUTTONS */
+.db-buttons {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
     display: flex;
-    gap: 8px;
-    align-items: center;
+    gap: 10px;
+    z-index: 1000;
 }
 
 @media (max-width: 700px) {
@@ -112,5 +108,9 @@ li.product-item {
     .container {
         margin-left: 20px;
         margin-right: 20px;
+    }
+
+    .db-buttons {
+        flex-direction: column;
     }
 }

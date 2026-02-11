@@ -1,116 +1,59 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 40px;
-    color: #333;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stock Manager</title>
 
-h1 {
-    color: #2c3e50;
-    margin-bottom: 20px;
-}
+    <!-- IMPORTANT: correct static path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-.container {
-    width: 100%;
-    max-width: 900px;
-    margin-left: 40px;
-    margin-right: auto;
-}
+<div class="container">
 
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+    <h1>Stock Manager</h1>
 
-.form-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <form method="POST" action="/add" class="form-row">
+            <input type="text" name="name" placeholder="Product name" required>
+            <input type="number" name="quantity" placeholder="Qty" required>
+            <button type="submit">➕ Add</button>
+        </form>
 
-input[type="text"],
-input[type="number"],
-input[type="search"],
-input[type="file"] {
-    padding: 6px 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
+        <form method="GET" action="/" class="form-row">
+            <input type="search" name="q" placeholder="Search">
+            <button type="submit">🔍</button>
+        </form>
+    </div>
 
-button {
-    padding: 6px 12px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 14px;
-    cursor: pointer;
-}
+    <!-- PRODUCTS -->
+    <ul class="product-list">
+        {% for product in products %}
+        <li class="product-item">
+            <div class="product-info">
+                <strong>{{ product[1] }}</strong> — {{ product[2] }}
+            </div>
 
-button:hover {
-    background-color: #2980b9;
-}
+            <div class="product-actions">
+                <a href="/delete/{{ product[0] }}">❌</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
 
-.db-buttons {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 20px;
-}
+</div>
 
-a {
-    color: #3498db;
-    text-decoration: none;
-    font-size: 14px;
-}
+<!-- BOTTOM LEFT BUTTONS -->
+<div class="db-buttons">
+    <form action="/dropbox_upload" method="POST">
+        <button type="submit">📤 Salvează în Dropbox</button>
+    </form>
 
-a:hover {
-    text-decoration: underline;
-}
+    <form action="/dropbox_download" method="POST">
+        <button type="submit">📥 Descarcă baza de date</button>
+    </form>
+</div>
 
-ul.product-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 20px;
-}
-
-li.product-item {
-    background: white;
-    margin-bottom: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.08);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-.product-info {
-    flex: 1 1 200px;
-}
-
-.product-actions {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-@media (max-width: 700px) {
-    .top-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .container {
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-}
+</body>
+</html>
