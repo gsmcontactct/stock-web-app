@@ -1,59 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
-    <title>Stock Manager</title>
-
-    <!-- IMPORTANT: correct static path -->
+    <title>Stoc Produse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
 <div class="container">
 
-    <h1>Stock Manager</h1>
+    <!-- DATABASE + DROPBOX (same idea as first app) -->
+    <form action="/upload-db" method="POST" enctype="multipart/form-data" class="form-row">
+        <input type="file" name="file" required>
+        <button type="submit">📤 Încarcă baza de date</button>
+    </form>
 
-    <!-- TOP BAR -->
+    <div class="db-buttons">
+        <a href="/save-dropbox"><button type="button">📤 Salvează în Dropbox</button></a>
+        <a href="/load-dropbox"><button type="button">📥 Încarcă din Dropbox</button></a>
+        <a href="/download-db"><button type="button">📥 Descarcă baza de date</button></a>
+    </div>
+
+    <!-- ADD + SEARCH -->
     <div class="top-bar">
-        <form method="POST" action="/add" class="form-row">
-            <input type="text" name="name" placeholder="Product name" required>
-            <input type="number" name="quantity" placeholder="Qty" required>
-            <button type="submit">➕ Add</button>
+        <form class="form-row" method="post" action="/add">
+            <input type="text" name="name" placeholder="Nume produs" required>
+            <input type="number" name="stock" placeholder="Stoc" min="0" required>
+            <button type="submit">Adaugă</button>
         </form>
 
-        <form method="GET" action="/" class="form-row">
-            <input type="search" name="q" placeholder="Search">
-            <button type="submit">🔍</button>
+        <form class="form-row" method="get" action="/search">
+            <input type="search" name="q" placeholder="Caută produs..." value="{{ search or '' }}">
+            <label>
+                <input type="checkbox" name="in_stock_only" {% if in_stock_only %}checked{% endif %}>
+                Doar cu stoc
+            </label>
+            <button type="submit">Caută</button>
         </form>
     </div>
 
-    <!-- PRODUCTS -->
+    <h1>Stoc Produse</h1>
+
+    <!-- PRODUCT LIST -->
     <ul class="product-list">
         {% for product in products %}
         <li class="product-item">
             <div class="product-info">
-                <strong>{{ product[1] }}</strong> — {{ product[2] }}
+                <strong>{{ product[1] }}</strong> ({{ product[2] }}) – Stoc:
             </div>
 
-            <div class="product-actions">
-                <a href="/delete/{{ product[0] }}">❌</a>
-            </div>
+            <form method="post" action="/update/{{ product[0] }}" class="product-actions">
+                <input type="number" name="stock" value="{{ product[3] }}" min="0">
+                <button type="submit">✔</button>
+                <a href="/delete/{{ product[0] }}"
+                   onclick="return confirm('Sigur vrei să ștergi produsul {{ product[1] }}?')">✖</a>
+            </form>
         </li>
+        {% else %}
+        <li style="text-align:center;">Nimic găsit.</li>
         {% endfor %}
     </ul>
 
 </div>
-
-<!-- BOTTOM LEFT BUTTONS -->
-<div class="db-buttons">
-    <form action="/dropbox_upload" method="POST">
-        <button type="submit">📤 Salvează în Dropbox</button>
-    </form>
-
-    <form action="/dropbox_download" method="POST">
-        <button type="submit">📥 Descarcă baza de date</button>
-    </form>
-</div>
-
 </body>
 </html>
