@@ -115,7 +115,7 @@ li.product-item {
     }
 }
 
-/* bottom-left file upload + download button */
+/* Bottom-left upload + download buttons */
 .bottom-left-db {
     position: fixed;
     bottom: 20px;
@@ -127,5 +127,5 @@ li.product-item {
 }
 
 .bottom-left-db button {
-    height: 36px; /* make upload and download same height */
+    height: 36px; /* uniform height for both buttons */
 }
